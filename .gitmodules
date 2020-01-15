@@ -1,0 +1,3 @@
+[submodule "matchentities"]
+	path = matchentities
+	url = git@gitlab.com:mentorgg/csgo/matchentities.git
