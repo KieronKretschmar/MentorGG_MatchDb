@@ -133,6 +133,8 @@ namespace Database
                     .WithMany(p => p.BombPlant)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.Pos);
             });
 
 
@@ -264,6 +266,9 @@ namespace Database
                     .WithMany(p => p.DamagesReceived)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.VictimId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.VictimPos);
             });
 
             modelBuilder.Entity<Decoy>(entity =>
@@ -299,6 +304,9 @@ namespace Database
                     .WithMany(p => p.Decoy)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.GrenadePos);
             });
 
             modelBuilder.Entity<FireNade>(entity =>
@@ -334,6 +342,9 @@ namespace Database
                     .WithMany(p => p.FireNade)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.GrenadePos);
             });
 
             modelBuilder.Entity<Flash>(entity =>
@@ -369,6 +380,9 @@ namespace Database
                     .WithMany(p => p.Flash)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.GrenadePos);
             });
 
             modelBuilder.Entity<Flashed>(entity =>
@@ -419,6 +433,8 @@ namespace Database
                     .WithMany(p => p.Flashed)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.VictimId })
                     .IsRequired();
+
+                entity.Ignore(x => x.VictimPos);
             });
 
             modelBuilder.Entity<He>(entity =>
@@ -452,6 +468,9 @@ namespace Database
                     .WithMany(p => p.He)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.GrenadePos);
             });
 
             modelBuilder.Entity<HostageDrop>(entity =>
@@ -485,6 +504,8 @@ namespace Database
                     .WithMany(p => p.HostageDrop)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.Pos);
             });
 
             modelBuilder.Entity<HostagePickUp>(entity =>
@@ -519,6 +540,8 @@ namespace Database
                     .WithMany(p => p.HostagePickUp)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.Pos);
             });
 
             modelBuilder.Entity<HostageRescue>(entity =>
@@ -552,6 +575,8 @@ namespace Database
                     .WithMany(p => p.HostageRescue)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.Pos);
             });
 
             modelBuilder.Entity<ItemDropped>(entity =>
@@ -707,6 +732,10 @@ namespace Database
                     .WithMany(p => p.Deaths)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.VictimId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.VictimPos);
+                entity.Ignore(x => x.AssisterPos);
             });
 
             modelBuilder.Entity<MatchStats>(entity =>
@@ -780,6 +809,9 @@ namespace Database
                     .WithMany(p => p.PlayerPosition)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.PlayerVelo);
             });
 
             modelBuilder.Entity<PlayerRoundStats>(entity =>
@@ -913,6 +945,9 @@ namespace Database
                     .WithMany(p => p.Smoke)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.GrenadePos);
             });
 
             modelBuilder.Entity<WeaponFired>(entity =>
@@ -949,6 +984,9 @@ namespace Database
                     .WithMany(p => p.WeaponFired)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Ignore(x => x.PlayerVelo);
             });
 
             modelBuilder.Entity<WeaponReload>(entity =>
@@ -982,6 +1020,8 @@ namespace Database
                     .WithMany(p => p.WeaponReload)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
             });
         }
     }
