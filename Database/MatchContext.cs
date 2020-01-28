@@ -39,7 +39,6 @@ namespace Database
         public virtual DbSet<PlayerMatchStats> PlayerMatchStats { get; set; }
         public virtual DbSet<PlayerPosition> PlayerPosition { get; set; }
         public virtual DbSet<PlayerRoundStats> PlayerRoundStats { get; set; }
-        public virtual DbSet<Refrag> Refrag { get; set; }
         public virtual DbSet<RoundItem> RoundItem { get; set; }
         public virtual DbSet<RoundStats> RoundStats { get; set; }
         public virtual DbSet<Smoke> Smoke { get; set; }
@@ -135,6 +134,9 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.Pos);
+                entity.Property("PosX");
+                entity.Property("PosY");
+                entity.Property("PosZ");
             });
 
 
@@ -268,7 +270,13 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
                 entity.Ignore(x => x.VictimPos);
+                entity.Property("VictimPosX");
+                entity.Property("VictimPosY");
+                entity.Property("VictimPosZ");
             });
 
             modelBuilder.Entity<Decoy>(entity =>
@@ -306,7 +314,16 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
-                entity.Ignore(x => x.GrenadePos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
+                entity.Ignore(x => x.DetonationPos);
+                entity.Property("DetonationPosX");
+                entity.Property("DetonationPosY");
+                entity.Property("DetonationPosZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<FireNade>(entity =>
@@ -344,7 +361,16 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
-                entity.Ignore(x => x.GrenadePos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
+                entity.Ignore(x => x.DetonationPos);
+                entity.Property("DetonationPosX");
+                entity.Property("DetonationPosY");
+                entity.Property("DetonationPosZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<Flash>(entity =>
@@ -382,7 +408,16 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
-                entity.Ignore(x => x.GrenadePos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
+                entity.Ignore(x => x.DetonationPos);
+                entity.Property("DetonationPosX");
+                entity.Property("DetonationPosY");
+                entity.Property("DetonationPosZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<Flashed>(entity =>
@@ -435,6 +470,9 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.VictimPos);
+                entity.Property("VictimPosX");
+                entity.Property("VictimPosY");
+                entity.Property("VictimPosZ");
             });
 
             modelBuilder.Entity<He>(entity =>
@@ -470,7 +508,16 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
-                entity.Ignore(x => x.GrenadePos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
+                entity.Ignore(x => x.DetonationPos);
+                entity.Property("DetonationPosX");
+                entity.Property("DetonationPosY");
+                entity.Property("DetonationPosZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<HostageDrop>(entity =>
@@ -506,6 +553,9 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.Pos);
+                entity.Property("PosX");
+                entity.Property("PosY");
+                entity.Property("PosZ");
             });
 
             modelBuilder.Entity<HostagePickUp>(entity =>
@@ -542,6 +592,9 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.Pos);
+                entity.Property("PosX");
+                entity.Property("PosY");
+                entity.Property("PosZ");
             });
 
             modelBuilder.Entity<HostageRescue>(entity =>
@@ -577,6 +630,9 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.Pos);
+                entity.Property("PosX");
+                entity.Property("PosY");
+                entity.Property("PosZ");
             });
 
             modelBuilder.Entity<ItemDropped>(entity =>
@@ -734,8 +790,17 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
                 entity.Ignore(x => x.VictimPos);
+                entity.Property("VictimPosX");
+                entity.Property("VictimPosY");
+                entity.Property("VictimPosZ");
                 entity.Ignore(x => x.AssisterPos);
+                entity.Property("AssisterPosX");
+                entity.Property("AssisterPosY");
+                entity.Property("AssisterPosZ");
             });
 
             modelBuilder.Entity<MatchStats>(entity =>
@@ -811,7 +876,16 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
                 entity.Ignore(x => x.PlayerVelo);
+                entity.Property("PlayerVeloX");
+                entity.Property("PlayerVeloY");
+                entity.Property("PlayerVeloZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<PlayerRoundStats>(entity =>
@@ -839,32 +913,6 @@ namespace Database
                 entity.HasOne(d => d.RoundStats)
                     .WithMany(p => p.PlayerRoundStats)
                     .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-            });
-
-            modelBuilder.Entity<Refrag>(entity =>
-            {
-                entity.HasKey(e => new { e.MatchId, e.KillId });
-
-                entity.HasIndex(e => e.MatchId);
-
-                entity.HasIndex(e => new { e.MatchId, e.KillId });
-
-                entity.HasIndex(e => new { e.MatchId, e.RefraggedKillId });
-
-                entity.HasOne(d => d.MatchStats)
-                    .WithMany(p => p.Refrag)
-                    .HasForeignKey(d => d.MatchId)
-                    .IsRequired();
-
-                entity.HasOne(d => d.Kill)
-                    .WithOne(p => p.Refrag)
-                    .HasForeignKey<Refrag>(d => new { d.MatchId, d.KillId })
-                    .IsRequired();
-
-                entity.HasOne(d => d.RefraggedKill)
-                    .WithMany(p => p.RefraggedBy)
-                    .HasForeignKey(d => new { d.MatchId, d.RefraggedKillId })
                     .IsRequired();
             });
 
@@ -947,7 +995,16 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
-                entity.Ignore(x => x.GrenadePos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
+                entity.Ignore(x => x.DetonationPos);
+                entity.Property("DetonationPosX");
+                entity.Property("DetonationPosY");
+                entity.Property("DetonationPosZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<WeaponFired>(entity =>
@@ -986,7 +1043,16 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
                 entity.Ignore(x => x.PlayerVelo);
+                entity.Property("PlayerVeloX");
+                entity.Property("PlayerVeloY");
+                entity.Property("PlayerVeloZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<WeaponReload>(entity =>
@@ -1022,6 +1088,12 @@ namespace Database
                     .IsRequired();
 
                 entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
         }
     }
