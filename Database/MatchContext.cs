@@ -33,7 +33,7 @@ namespace Database
         public virtual DbSet<ItemDropped> ItemDropped { get; set; }
         public virtual DbSet<ItemPickedUp> ItemPickedUp { get; set; }
         public virtual DbSet<ItemSaved> ItemSaved { get; set; }
-        public virtual DbSet<Kill> Kills { get; set; }
+        public virtual DbSet<Kill> Kill { get; set; }
         public virtual DbSet<MatchStats> MatchStats { get; set; }
         public virtual DbSet<OverTimeStats> OverTimeStats { get; set; }
         public virtual DbSet<PlayerMatchStats> PlayerMatchStats { get; set; }
