@@ -85,7 +85,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\matchentities\MatchEntities\MatchEntities.csproj" />
+    <ProjectReference Include="..\MatchEntities\MatchEntities\MatchEntities.csproj" />
   </ItemGroup>
 
 </Project>
