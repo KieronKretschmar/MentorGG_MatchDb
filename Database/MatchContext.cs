@@ -807,11 +807,39 @@ namespace Database
             {
                 entity.HasKey(e => e.MatchId);
 
-                entity.HasIndex(e => e.DemoId);
-
                 entity.Property(e => e.Map)
                     .IsRequired();
+
+
+                #region TeamStats
+
+                entity.Ignore(x => x.TeamStats);
+
+                // TerroristStarter
+                entity.Property("Score1");
+                entity.Property("RealScore1");
+                entity.Property("NumRoundsT1");
+                entity.Property("NumRoundsCt1");
+                entity.Property("BombPlants1");
+                entity.Property("BombExplodes1");
+                entity.Property("BombDefuses1");
+                entity.Property("MoneyEarned1");
+                entity.Property("MoneySpent1");
+
+                // CtStarter
+                entity.Property("Score2");
+                entity.Property("RealScore2");
+                entity.Property("NumRoundsT2");
+                entity.Property("NumRoundsCt2");
+                entity.Property("BombPlants2");
+                entity.Property("BombExplodes2");
+                entity.Property("BombDefuses2");
+                entity.Property("MoneyEarned2");
+                entity.Property("MoneySpent2");
+
+                #endregion
             });
+
 
             modelBuilder.Entity<OverTimeStats>(entity =>
             {
