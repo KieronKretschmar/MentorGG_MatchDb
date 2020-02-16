@@ -810,6 +810,7 @@ namespace Database
                 entity.Property(e => e.Map)
                     .IsRequired();
 
+                entity.OwnsOne(x => x.Config);
 
                 #region TeamStats
 
