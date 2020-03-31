@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Database.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,12 +14,13 @@ namespace Database.Migrations
                 {
                     MatchId = table.Column<long>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    DemoId = table.Column<long>(nullable: false),
                     MatchDate = table.Column<DateTime>(nullable: false),
                     Map = table.Column<string>(nullable: false),
                     WinnerTeam = table.Column<byte>(nullable: false),
                     Score1 = table.Column<short>(nullable: false),
                     Score2 = table.Column<short>(nullable: false),
+                    RealScore1 = table.Column<short>(nullable: false),
+                    RealScore2 = table.Column<short>(nullable: false),
                     NumRoundsT1 = table.Column<short>(nullable: false),
                     NumRoundsCt1 = table.Column<short>(nullable: false),
                     NumRoundsT2 = table.Column<short>(nullable: false),
@@ -34,18 +35,18 @@ namespace Database.Migrations
                     MoneyEarned2 = table.Column<int>(nullable: false),
                     MoneySpent1 = table.Column<int>(nullable: false),
                     MoneySpent2 = table.Column<int>(nullable: false),
-                    AvgroundTime = table.Column<int>(nullable: true),
+                    AvgRoundTime = table.Column<int>(nullable: true),
                     RoundTimer = table.Column<int>(nullable: false),
                     BombTimer = table.Column<int>(nullable: false),
                     StartMoney = table.Column<int>(nullable: false),
                     DemoTickRate = table.Column<short>(nullable: false),
                     SourceTickRate = table.Column<short>(nullable: false),
-                    Source = table.Column<string>(nullable: true),
+                    Source = table.Column<byte>(nullable: false),
                     GameType = table.Column<byte>(nullable: false),
-                    AvgRank = table.Column<double>(nullable: true),
-                    RealScore1 = table.Column<short>(nullable: false),
-                    RealScore2 = table.Column<short>(nullable: false),
-                    Event = table.Column<string>(nullable: true)
+                    AvgRank = table.Column<float>(nullable: true),
+                    Event = table.Column<string>(nullable: true),
+                    Config_Quality = table.Column<byte>(nullable: true),
+                    Config_FramesPerSecond = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -119,15 +120,15 @@ namespace Database.Migrations
                     SmokesUsed = table.Column<short>(nullable: false),
                     FirstBloods = table.Column<short>(nullable: false),
                     FirstBloodVictim = table.Column<short>(nullable: false),
-                    AvgTimeAlive = table.Column<double>(nullable: false),
+                    AvgTimeAlive = table.Column<float>(nullable: false),
                     TeamDamage = table.Column<int>(nullable: false),
                     TeamKills = table.Column<int>(nullable: false),
                     EntryKills = table.Column<int>(nullable: false),
                     EntryKillVictim = table.Column<int>(nullable: false),
                     Suicides = table.Column<short>(nullable: false),
                     BombVictim = table.Column<short>(nullable: false),
-                    HltvRating1 = table.Column<double>(nullable: false),
-                    HltvRating2 = table.Column<double>(nullable: false),
+                    HltvRating1 = table.Column<float>(nullable: false),
+                    HltvRating2 = table.Column<float>(nullable: false),
                     RankBeforeMatch = table.Column<byte>(nullable: false),
                     RankAfterMatch = table.Column<byte>(nullable: false),
                     RealKills = table.Column<short>(nullable: false),
@@ -156,7 +157,7 @@ namespace Database.Migrations
                     WinnerTeam = table.Column<byte>(nullable: false),
                     OriginalSide = table.Column<bool>(nullable: false),
                     BombPlanted = table.Column<bool>(nullable: false),
-                    WinType = table.Column<byte>(nullable: true),
+                    WinType = table.Column<byte>(nullable: false),
                     RoundTime = table.Column<int>(nullable: false),
                     StartTime = table.Column<int>(nullable: false),
                     EndTime = table.Column<int>(nullable: false),
@@ -258,8 +259,7 @@ namespace Database.Migrations
                     GiftedValue = table.Column<int>(nullable: false),
                     ReceivedGiftValue = table.Column<int>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
-                    ArmorType = table.Column<short>(nullable: false),
-                    PathId = table.Column<int>(nullable: false),
+                    ArmorType = table.Column<byte>(nullable: false),
                     RoundStartKills = table.Column<short>(nullable: false),
                     RoundStartDeaths = table.Column<short>(nullable: false),
                     RoundStartAssists = table.Column<short>(nullable: false),
@@ -340,9 +340,9 @@ namespace Database.Migrations
                     Tick = table.Column<int>(nullable: false),
                     PlayerId = table.Column<long>(nullable: false),
                     Site = table.Column<byte>(nullable: false),
-                    PosX = table.Column<double>(nullable: false),
-                    PosY = table.Column<double>(nullable: false),
-                    PosZ = table.Column<double>(nullable: false),
+                    PosX = table.Column<float>(nullable: false),
+                    PosY = table.Column<float>(nullable: false),
+                    PosZ = table.Column<float>(nullable: false),
                     PlantZone = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -423,17 +423,18 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
-                    GrenadePosX = table.Column<double>(nullable: false),
-                    GrenadePosY = table.Column<double>(nullable: false),
-                    GrenadePosZ = table.Column<double>(nullable: false),
-                    Trajectory = table.Column<string>(nullable: false)
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
+                    DetonationPosX = table.Column<float>(nullable: false),
+                    DetonationPosY = table.Column<float>(nullable: false),
+                    DetonationPosZ = table.Column<float>(nullable: false),
+                    Trajectory = table.Column<string>(nullable: false),
+                    DetonationZoneByTeam = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -473,19 +474,18 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
-                    GrenadePosX = table.Column<double>(nullable: false),
-                    GrenadePosY = table.Column<double>(nullable: false),
-                    GrenadePosZ = table.Column<double>(nullable: false),
-                    NadeType = table.Column<byte>(nullable: false),
-                    DetonationZoneByTeam = table.Column<int>(nullable: false),
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
+                    DetonationPosX = table.Column<float>(nullable: false),
+                    DetonationPosY = table.Column<float>(nullable: false),
+                    DetonationPosZ = table.Column<float>(nullable: false),
                     Trajectory = table.Column<string>(nullable: false),
+                    DetonationZoneByTeam = table.Column<int>(nullable: false),
                     IsMolotov = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -526,18 +526,18 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
-                    GrenadePosX = table.Column<double>(nullable: false),
-                    GrenadePosY = table.Column<double>(nullable: false),
-                    GrenadePosZ = table.Column<double>(nullable: false),
-                    DetonationZoneByTeam = table.Column<int>(nullable: false),
-                    Trajectory = table.Column<string>(nullable: false)
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
+                    DetonationPosX = table.Column<float>(nullable: false),
+                    DetonationPosY = table.Column<float>(nullable: false),
+                    DetonationPosZ = table.Column<float>(nullable: false),
+                    Trajectory = table.Column<string>(nullable: false),
+                    DetonationZoneByTeam = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -577,18 +577,18 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
-                    GrenadePosX = table.Column<double>(nullable: false),
-                    GrenadePosY = table.Column<double>(nullable: false),
-                    GrenadePosZ = table.Column<double>(nullable: false),
-                    DetonationZoneByTeam = table.Column<int>(nullable: false),
-                    Trajectory = table.Column<string>(nullable: true)
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
+                    DetonationPosX = table.Column<float>(nullable: false),
+                    DetonationPosY = table.Column<float>(nullable: false),
+                    DetonationPosZ = table.Column<float>(nullable: false),
+                    Trajectory = table.Column<string>(nullable: true),
+                    DetonationZoneByTeam = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -628,9 +628,9 @@ namespace Database.Migrations
                     Time = table.Column<int>(nullable: false),
                     PlayerId = table.Column<long>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PosX = table.Column<double>(nullable: false),
-                    PosY = table.Column<double>(nullable: false),
-                    PosZ = table.Column<double>(nullable: false)
+                    PosX = table.Column<float>(nullable: false),
+                    PosY = table.Column<float>(nullable: false),
+                    PosZ = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -670,9 +670,9 @@ namespace Database.Migrations
                     Time = table.Column<int>(nullable: false),
                     PlayerId = table.Column<long>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PosX = table.Column<double>(nullable: false),
-                    PosY = table.Column<double>(nullable: false),
-                    PosZ = table.Column<double>(nullable: false)
+                    PosX = table.Column<float>(nullable: false),
+                    PosY = table.Column<float>(nullable: false),
+                    PosZ = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -712,9 +712,9 @@ namespace Database.Migrations
                     Time = table.Column<int>(nullable: false),
                     PlayerId = table.Column<long>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PosX = table.Column<double>(nullable: false),
-                    PosY = table.Column<double>(nullable: false),
-                    PosZ = table.Column<double>(nullable: false)
+                    PosX = table.Column<float>(nullable: false),
+                    PosY = table.Column<float>(nullable: false),
+                    PosZ = table.Column<float>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -840,14 +840,15 @@ namespace Database.Migrations
                     Time = table.Column<int>(nullable: false),
                     PlayerId = table.Column<long>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
-                    PlayerVeloX = table.Column<double>(nullable: false),
-                    PlayerVeloY = table.Column<double>(nullable: false),
-                    PlayerVeloZ = table.Column<double>(nullable: false),
+                    IsCt = table.Column<bool>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
+                    PlayerVeloX = table.Column<float>(nullable: false),
+                    PlayerVeloY = table.Column<float>(nullable: false),
+                    PlayerVeloZ = table.Column<float>(nullable: false),
                     Weapon = table.Column<short>(nullable: false)
                 },
                 constraints: table =>
@@ -929,20 +930,21 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
-                    GrenadePosX = table.Column<double>(nullable: false),
-                    GrenadePosY = table.Column<double>(nullable: false),
-                    GrenadePosZ = table.Column<double>(nullable: false),
-                    Category = table.Column<int>(nullable: false),
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
+                    DetonationPosX = table.Column<float>(nullable: false),
+                    DetonationPosY = table.Column<float>(nullable: false),
+                    DetonationPosZ = table.Column<float>(nullable: false),
+                    Trajectory = table.Column<string>(nullable: false),
+                    DetonationZoneByTeam = table.Column<int>(nullable: false),
+                    LineUp = table.Column<int>(nullable: false),
                     Target = table.Column<int>(nullable: false),
-                    Result = table.Column<byte>(nullable: false),
-                    Trajectory = table.Column<string>(nullable: false)
+                    Result = table.Column<byte>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -982,20 +984,20 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
-                    PlayerVeloX = table.Column<double>(nullable: false),
-                    PlayerVeloY = table.Column<double>(nullable: false),
-                    PlayerVeloZ = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
+                    PlayerVeloX = table.Column<float>(nullable: false),
+                    PlayerVeloY = table.Column<float>(nullable: false),
+                    PlayerVeloZ = table.Column<float>(nullable: false),
                     Weapon = table.Column<short>(nullable: false),
-                    InAccuracyFromFiring = table.Column<double>(nullable: false),
-                    InAccuracyFromMoving = table.Column<double>(nullable: false),
-                    PlayerState = table.Column<short>(nullable: false)
+                    InAccuracyFromFiring = table.Column<float>(nullable: false),
+                    InAccuracyFromMoving = table.Column<float>(nullable: false),
+                    IsDucking = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1035,13 +1037,13 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
-                    PlayerViewX = table.Column<double>(nullable: false),
-                    PlayerViewY = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
+                    PlayerViewX = table.Column<float>(nullable: false),
+                    PlayerViewY = table.Column<float>(nullable: false),
                     Weapon = table.Column<short>(nullable: false),
                     AmmoBefore = table.Column<short>(nullable: false),
                     AmmoAfter = table.Column<short>(nullable: false),
@@ -1071,6 +1073,61 @@ namespace Database.Migrations
                     table.ForeignKey(
                         name: "FK_WeaponReload_PlayerRoundStats_MatchId_Round_PlayerId",
                         columns: x => new { x.MatchId, x.Round, x.PlayerId },
+                        principalTable: "PlayerRoundStats",
+                        principalColumns: new[] { "MatchId", "Round", "PlayerId" },
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Flashed",
+                columns: table => new
+                {
+                    MatchId = table.Column<long>(nullable: false),
+                    GrenadeId = table.Column<long>(nullable: false),
+                    VictimId = table.Column<long>(nullable: false),
+                    Round = table.Column<short>(nullable: false),
+                    VictimPosX = table.Column<float>(nullable: false),
+                    VictimPosY = table.Column<float>(nullable: false),
+                    VictimPosZ = table.Column<float>(nullable: false),
+                    VictimViewX = table.Column<float>(nullable: false),
+                    VictimViewY = table.Column<float>(nullable: false),
+                    IsCt = table.Column<bool>(nullable: false),
+                    TimeFlashed = table.Column<int>(nullable: false),
+                    TeamAttack = table.Column<bool>(nullable: false),
+                    AssistedKillId = table.Column<long>(nullable: true),
+                    TimeUntilAssistedKill = table.Column<int>(nullable: true),
+                    AngleToCrosshair = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Flashed", x => new { x.MatchId, x.GrenadeId, x.VictimId });
+                    table.ForeignKey(
+                        name: "FK_Flashed_MatchStats_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "MatchStats",
+                        principalColumn: "MatchId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Flashed_Flash_MatchId_GrenadeId",
+                        columns: x => new { x.MatchId, x.GrenadeId },
+                        principalTable: "Flash",
+                        principalColumns: new[] { "MatchId", "GrenadeId" },
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Flashed_RoundStats_MatchId_Round",
+                        columns: x => new { x.MatchId, x.Round },
+                        principalTable: "RoundStats",
+                        principalColumns: new[] { "MatchId", "Round" },
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Flashed_PlayerMatchStats_MatchId_VictimId",
+                        columns: x => new { x.MatchId, x.VictimId },
+                        principalTable: "PlayerMatchStats",
+                        principalColumns: new[] { "MatchId", "SteamId" },
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Flashed_PlayerRoundStats_MatchId_Round_VictimId",
+                        columns: x => new { x.MatchId, x.Round, x.VictimId },
                         principalTable: "PlayerRoundStats",
                         principalColumns: new[] { "MatchId", "Round", "PlayerId" },
                         onDelete: ReferentialAction.Cascade);
@@ -1137,15 +1194,15 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
                     IsCt = table.Column<bool>(nullable: false),
+                    PlayerId = table.Column<long>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
                     VictimId = table.Column<long>(nullable: false),
-                    VictimPosX = table.Column<double>(nullable: false),
-                    VictimPosY = table.Column<double>(nullable: false),
-                    VictimPosZ = table.Column<double>(nullable: false),
+                    VictimPosX = table.Column<float>(nullable: false),
+                    VictimPosY = table.Column<float>(nullable: false),
+                    VictimPosZ = table.Column<float>(nullable: false),
                     AmountHealth = table.Column<int>(nullable: false),
                     AmountHealthPotential = table.Column<int>(nullable: false),
                     AmountArmor = table.Column<int>(nullable: false),
@@ -1226,7 +1283,7 @@ namespace Database.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Kills",
+                name: "Kill",
                 columns: table => new
                 {
                     MatchId = table.Column<long>(nullable: false),
@@ -1234,24 +1291,24 @@ namespace Database.Migrations
                     Round = table.Column<short>(nullable: false),
                     Time = table.Column<int>(nullable: false),
                     Tick = table.Column<int>(nullable: false),
+                    IsCt = table.Column<bool>(nullable: false),
                     PlayerId = table.Column<long>(nullable: false),
-                    PlayerPosX = table.Column<double>(nullable: false),
-                    PlayerPosY = table.Column<double>(nullable: false),
-                    PlayerPosZ = table.Column<double>(nullable: false),
+                    PlayerPosX = table.Column<float>(nullable: false),
+                    PlayerPosY = table.Column<float>(nullable: false),
+                    PlayerPosZ = table.Column<float>(nullable: false),
                     PlayerPrimary = table.Column<short>(nullable: false),
                     PlayerSecondary = table.Column<short>(nullable: false),
-                    IsCt = table.Column<bool>(nullable: false),
                     VictimId = table.Column<long>(nullable: false),
-                    VictimPosX = table.Column<double>(nullable: false),
-                    VictimPosY = table.Column<double>(nullable: false),
-                    VictimPosZ = table.Column<double>(nullable: false),
+                    VictimPosX = table.Column<float>(nullable: false),
+                    VictimPosY = table.Column<float>(nullable: false),
+                    VictimPosZ = table.Column<float>(nullable: false),
                     VictimPrimary = table.Column<short>(nullable: false),
                     VictimSecondary = table.Column<short>(nullable: false),
                     AssistByFlash = table.Column<bool>(nullable: false),
                     AssisterId = table.Column<long>(nullable: true),
-                    AssisterPosX = table.Column<double>(nullable: true),
-                    AssisterPosY = table.Column<double>(nullable: true),
-                    AssisterPosZ = table.Column<double>(nullable: true),
+                    AssisterPosX = table.Column<float>(nullable: false),
+                    AssisterPosY = table.Column<float>(nullable: false),
+                    AssisterPosZ = table.Column<float>(nullable: false),
                     KillType = table.Column<byte>(nullable: false),
                     Weapon = table.Column<short>(nullable: false),
                     TeamKill = table.Column<bool>(nullable: false),
@@ -1261,140 +1318,48 @@ namespace Database.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Kills", x => new { x.MatchId, x.KillId });
+                    table.PrimaryKey("PK_Kill", x => new { x.MatchId, x.KillId });
                     table.ForeignKey(
-                        name: "FK_Kills_MatchStats_MatchId",
+                        name: "FK_Kill_MatchStats_MatchId",
                         column: x => x.MatchId,
                         principalTable: "MatchStats",
                         principalColumn: "MatchId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Kills_Damage_MatchId_DamageId",
+                        name: "FK_Kill_Damage_MatchId_DamageId",
                         columns: x => new { x.MatchId, x.DamageId },
                         principalTable: "Damage",
                         principalColumns: new[] { "MatchId", "DamageId" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Kills_PlayerMatchStats_MatchId_PlayerId",
+                        name: "FK_Kill_PlayerMatchStats_MatchId_PlayerId",
                         columns: x => new { x.MatchId, x.PlayerId },
                         principalTable: "PlayerMatchStats",
                         principalColumns: new[] { "MatchId", "SteamId" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Kills_RoundStats_MatchId_Round",
+                        name: "FK_Kill_RoundStats_MatchId_Round",
                         columns: x => new { x.MatchId, x.Round },
                         principalTable: "RoundStats",
                         principalColumns: new[] { "MatchId", "Round" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Kills_PlayerMatchStats_MatchId_VictimId",
+                        name: "FK_Kill_PlayerMatchStats_MatchId_VictimId",
                         columns: x => new { x.MatchId, x.VictimId },
                         principalTable: "PlayerMatchStats",
                         principalColumns: new[] { "MatchId", "SteamId" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Kills_PlayerRoundStats_MatchId_Round_PlayerId",
+                        name: "FK_Kill_PlayerRoundStats_MatchId_Round_PlayerId",
                         columns: x => new { x.MatchId, x.Round, x.PlayerId },
                         principalTable: "PlayerRoundStats",
                         principalColumns: new[] { "MatchId", "Round", "PlayerId" },
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Kills_PlayerRoundStats_MatchId_Round_VictimId",
+                        name: "FK_Kill_PlayerRoundStats_MatchId_Round_VictimId",
                         columns: x => new { x.MatchId, x.Round, x.VictimId },
                         principalTable: "PlayerRoundStats",
                         principalColumns: new[] { "MatchId", "Round", "PlayerId" },
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Flashed",
-                columns: table => new
-                {
-                    MatchId = table.Column<long>(nullable: false),
-                    GrenadeId = table.Column<long>(nullable: false),
-                    VictimId = table.Column<long>(nullable: false),
-                    Round = table.Column<short>(nullable: false),
-                    VictimPosX = table.Column<double>(nullable: false),
-                    VictimPosY = table.Column<double>(nullable: false),
-                    VictimPosZ = table.Column<double>(nullable: false),
-                    VictimViewX = table.Column<double>(nullable: false),
-                    VictimViewY = table.Column<double>(nullable: false),
-                    IsCt = table.Column<bool>(nullable: false),
-                    TimeFlashed = table.Column<int>(nullable: false),
-                    TeamAttack = table.Column<bool>(nullable: false),
-                    AssistedKillId = table.Column<long>(nullable: true),
-                    TimeUntilAssistedKill = table.Column<int>(nullable: true),
-                    AngleToCrosshair = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Flashed", x => new { x.MatchId, x.GrenadeId, x.VictimId });
-                    table.ForeignKey(
-                        name: "FK_Flashed_MatchStats_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "MatchStats",
-                        principalColumn: "MatchId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Flashed_Kills_MatchId_AssistedKillId",
-                        columns: x => new { x.MatchId, x.AssistedKillId },
-                        principalTable: "Kills",
-                        principalColumns: new[] { "MatchId", "KillId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Flashed_Flash_MatchId_GrenadeId",
-                        columns: x => new { x.MatchId, x.GrenadeId },
-                        principalTable: "Flash",
-                        principalColumns: new[] { "MatchId", "GrenadeId" },
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Flashed_RoundStats_MatchId_Round",
-                        columns: x => new { x.MatchId, x.Round },
-                        principalTable: "RoundStats",
-                        principalColumns: new[] { "MatchId", "Round" },
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Flashed_PlayerMatchStats_MatchId_VictimId",
-                        columns: x => new { x.MatchId, x.VictimId },
-                        principalTable: "PlayerMatchStats",
-                        principalColumns: new[] { "MatchId", "SteamId" },
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Flashed_PlayerRoundStats_MatchId_Round_VictimId",
-                        columns: x => new { x.MatchId, x.Round, x.VictimId },
-                        principalTable: "PlayerRoundStats",
-                        principalColumns: new[] { "MatchId", "Round", "PlayerId" },
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Refrag",
-                columns: table => new
-                {
-                    MatchId = table.Column<long>(nullable: false),
-                    KillId = table.Column<long>(nullable: false),
-                    RefraggedKillId = table.Column<long>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Refrag", x => new { x.MatchId, x.KillId });
-                    table.ForeignKey(
-                        name: "FK_Refrag_MatchStats_MatchId",
-                        column: x => x.MatchId,
-                        principalTable: "MatchStats",
-                        principalColumn: "MatchId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Refrag_Kills_MatchId_KillId",
-                        columns: x => new { x.MatchId, x.KillId },
-                        principalTable: "Kills",
-                        principalColumns: new[] { "MatchId", "KillId" },
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Refrag_Kills_MatchId_RefraggedKillId",
-                        columns: x => new { x.MatchId, x.RefraggedKillId },
-                        principalTable: "Kills",
-                        principalColumns: new[] { "MatchId", "KillId" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1604,8 +1569,7 @@ namespace Database.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Flashed_MatchId_AssistedKillId",
                 table: "Flashed",
-                columns: new[] { "MatchId", "AssistedKillId" },
-                unique: true);
+                columns: new[] { "MatchId", "AssistedKillId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Flashed_MatchId_Round",
@@ -1768,44 +1732,39 @@ namespace Database.Migrations
                 columns: new[] { "MatchId", "Round", "PlayerId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kills_MatchId",
-                table: "Kills",
+                name: "IX_Kill_MatchId",
+                table: "Kill",
                 column: "MatchId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kills_MatchId_DamageId",
-                table: "Kills",
+                name: "IX_Kill_MatchId_DamageId",
+                table: "Kill",
                 columns: new[] { "MatchId", "DamageId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kills_MatchId_PlayerId",
-                table: "Kills",
+                name: "IX_Kill_MatchId_PlayerId",
+                table: "Kill",
                 columns: new[] { "MatchId", "PlayerId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kills_MatchId_Round",
-                table: "Kills",
+                name: "IX_Kill_MatchId_Round",
+                table: "Kill",
                 columns: new[] { "MatchId", "Round" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kills_MatchId_VictimId",
-                table: "Kills",
+                name: "IX_Kill_MatchId_VictimId",
+                table: "Kill",
                 columns: new[] { "MatchId", "VictimId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kills_MatchId_Round_PlayerId",
-                table: "Kills",
+                name: "IX_Kill_MatchId_Round_PlayerId",
+                table: "Kill",
                 columns: new[] { "MatchId", "Round", "PlayerId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Kills_MatchId_Round_VictimId",
-                table: "Kills",
+                name: "IX_Kill_MatchId_Round_VictimId",
+                table: "Kill",
                 columns: new[] { "MatchId", "Round", "VictimId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MatchStats_DemoId",
-                table: "MatchStats",
-                column: "DemoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OverTimeStats_MatchId",
@@ -1852,21 +1811,6 @@ namespace Database.Migrations
                 name: "IX_PlayerRoundStats_MatchId_Round",
                 table: "PlayerRoundStats",
                 columns: new[] { "MatchId", "Round" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Refrag_MatchId",
-                table: "Refrag",
-                column: "MatchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Refrag_MatchId_KillId",
-                table: "Refrag",
-                columns: new[] { "MatchId", "KillId" });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Refrag_MatchId_RefraggedKillId",
-                table: "Refrag",
-                columns: new[] { "MatchId", "RefraggedKillId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_RoundItem_MatchId",
@@ -1985,13 +1929,13 @@ namespace Database.Migrations
                 name: "ItemSaved");
 
             migrationBuilder.DropTable(
+                name: "Kill");
+
+            migrationBuilder.DropTable(
                 name: "OverTimeStats");
 
             migrationBuilder.DropTable(
                 name: "PlayerPosition");
-
-            migrationBuilder.DropTable(
-                name: "Refrag");
 
             migrationBuilder.DropTable(
                 name: "RoundItem");
@@ -2007,9 +1951,6 @@ namespace Database.Migrations
 
             migrationBuilder.DropTable(
                 name: "ItemDropped");
-
-            migrationBuilder.DropTable(
-                name: "Kills");
 
             migrationBuilder.DropTable(
                 name: "Damage");

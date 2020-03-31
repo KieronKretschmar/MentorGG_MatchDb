@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(MatchContext))]
-    [Migration("20191127134912_minor_spelling_fix")]
-    partial class minor_spelling_fix
+    [Migration("20200331084014_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.0.0")
+                .HasAnnotation("ProductVersion", "3.1.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("MatchEntities.BombDefused", b =>
@@ -91,14 +91,14 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PosZ")
+                        .HasColumnType("float");
 
                     b.Property<byte>("Site")
                         .HasColumnType("tinyint unsigned");
@@ -225,14 +225,14 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
                     b.Property<int?>("PlayerZoneByTeam")
                         .HasColumnType("int");
@@ -252,14 +252,14 @@ namespace Database.Migrations
                     b.Property<long>("VictimId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("VictimPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosZ")
+                        .HasColumnType("float");
 
                     b.Property<int?>("VictimZoneByTeam")
                         .HasColumnType("int");
@@ -303,14 +303,17 @@ namespace Database.Migrations
                     b.Property<long>("GrenadeId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("GrenadePosX")
-                        .HasColumnType("double");
+                    b.Property<float>("DetonationPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("GrenadePosY")
-                        .HasColumnType("double");
+                    b.Property<float>("DetonationPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("GrenadePosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("DetonationPosZ")
+                        .HasColumnType("float");
+
+                    b.Property<int>("DetonationZoneByTeam")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsCt")
                         .HasColumnType("tinyint(1)");
@@ -318,20 +321,20 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<short>("Round")
                         .HasColumnType("smallint");
@@ -367,17 +370,17 @@ namespace Database.Migrations
                     b.Property<long>("GrenadeId")
                         .HasColumnType("bigint");
 
+                    b.Property<float>("DetonationPosX")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosY")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosZ")
+                        .HasColumnType("float");
+
                     b.Property<int>("DetonationZoneByTeam")
                         .HasColumnType("int");
-
-                    b.Property<double>("GrenadePosX")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosY")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosZ")
-                        .HasColumnType("double");
 
                     b.Property<bool>("IsCt")
                         .HasColumnType("tinyint(1)");
@@ -385,26 +388,23 @@ namespace Database.Migrations
                     b.Property<bool>("IsMolotov")
                         .HasColumnType("tinyint(1)");
 
-                    b.Property<byte>("NadeType")
-                        .HasColumnType("tinyint unsigned");
-
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<short>("Round")
                         .HasColumnType("smallint");
@@ -440,17 +440,17 @@ namespace Database.Migrations
                     b.Property<long>("GrenadeId")
                         .HasColumnType("bigint");
 
+                    b.Property<float>("DetonationPosX")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosY")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosZ")
+                        .HasColumnType("float");
+
                     b.Property<int>("DetonationZoneByTeam")
                         .HasColumnType("int");
-
-                    b.Property<double>("GrenadePosX")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosY")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosZ")
-                        .HasColumnType("double");
 
                     b.Property<bool>("IsCt")
                         .HasColumnType("tinyint(1)");
@@ -458,20 +458,20 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<short>("Round")
                         .HasColumnType("smallint");
@@ -531,27 +531,26 @@ namespace Database.Migrations
                     b.Property<int?>("TimeUntilAssistedKill")
                         .HasColumnType("int");
 
-                    b.Property<double>("VictimPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimViewY")
+                        .HasColumnType("float");
 
                     b.HasKey("MatchId", "GrenadeId", "VictimId");
 
                     b.HasIndex("MatchId");
 
-                    b.HasIndex("MatchId", "AssistedKillId")
-                        .IsUnique();
+                    b.HasIndex("MatchId", "AssistedKillId");
 
                     b.HasIndex("MatchId", "Round");
 
@@ -570,17 +569,17 @@ namespace Database.Migrations
                     b.Property<long>("GrenadeId")
                         .HasColumnType("bigint");
 
+                    b.Property<float>("DetonationPosX")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosY")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosZ")
+                        .HasColumnType("float");
+
                     b.Property<int>("DetonationZoneByTeam")
                         .HasColumnType("int");
-
-                    b.Property<double>("GrenadePosX")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosY")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosZ")
-                        .HasColumnType("double");
 
                     b.Property<bool>("IsCt")
                         .HasColumnType("tinyint(1)");
@@ -588,20 +587,20 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<short>("Round")
                         .HasColumnType("smallint");
@@ -642,14 +641,14 @@ namespace Database.Migrations
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
-                    b.Property<double>("PosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PosZ")
+                        .HasColumnType("float");
 
                     b.Property<int>("Tick")
                         .HasColumnType("int");
@@ -681,14 +680,14 @@ namespace Database.Migrations
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
-                    b.Property<double>("PosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PosZ")
+                        .HasColumnType("float");
 
                     b.Property<int>("Tick")
                         .HasColumnType("int");
@@ -720,14 +719,14 @@ namespace Database.Migrations
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
-                    b.Property<double>("PosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PosZ")
+                        .HasColumnType("float");
 
                     b.Property<int>("Tick")
                         .HasColumnType("int");
@@ -896,14 +895,14 @@ namespace Database.Migrations
                     b.Property<long?>("AssisterId")
                         .HasColumnType("bigint");
 
-                    b.Property<double?>("AssisterPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("AssisterPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double?>("AssisterPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("AssisterPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double?>("AssisterPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("AssisterPosZ")
+                        .HasColumnType("float");
 
                     b.Property<long?>("DamageId")
                         .IsRequired()
@@ -918,14 +917,14 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
                     b.Property<short>("PlayerPrimary")
                         .HasColumnType("smallint");
@@ -951,14 +950,14 @@ namespace Database.Migrations
                     b.Property<long>("VictimId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("VictimPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("VictimPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("VictimPosZ")
+                        .HasColumnType("float");
 
                     b.Property<short>("VictimPrimary")
                         .HasColumnType("smallint");
@@ -988,7 +987,7 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round", "VictimId");
 
-                    b.ToTable("Kills");
+                    b.ToTable("Kill");
                 });
 
             modelBuilder.Entity("MatchEntities.MatchStats", b =>
@@ -997,8 +996,8 @@ namespace Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
-                    b.Property<double?>("AvgRank")
-                        .HasColumnType("double");
+                    b.Property<float?>("AvgRank")
+                        .HasColumnType("float");
 
                     b.Property<int?>("AvgRoundTime")
                         .HasColumnType("int");
@@ -1023,9 +1022,6 @@ namespace Database.Migrations
 
                     b.Property<int>("BombTimer")
                         .HasColumnType("int");
-
-                    b.Property<long>("DemoId")
-                        .HasColumnType("bigint");
 
                     b.Property<short>("DemoTickRate")
                         .HasColumnType("smallint");
@@ -1082,8 +1078,8 @@ namespace Database.Migrations
                     b.Property<short>("Score2")
                         .HasColumnType("smallint");
 
-                    b.Property<string>("Source")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<byte>("Source")
+                        .HasColumnType("tinyint unsigned");
 
                     b.Property<short>("SourceTickRate")
                         .HasColumnType("smallint");
@@ -1095,8 +1091,6 @@ namespace Database.Migrations
                         .HasColumnType("tinyint unsigned");
 
                     b.HasKey("MatchId");
-
-                    b.HasIndex("DemoId");
 
                     b.ToTable("MatchStats");
                 });
@@ -1137,8 +1131,8 @@ namespace Database.Migrations
                     b.Property<short>("AssistCount")
                         .HasColumnType("smallint");
 
-                    b.Property<double>("AvgTimeAlive")
-                        .HasColumnType("double");
+                    b.Property<float>("AvgTimeAlive")
+                        .HasColumnType("float");
 
                     b.Property<short>("BombDefuses")
                         .HasColumnType("smallint");
@@ -1218,11 +1212,11 @@ namespace Database.Migrations
                     b.Property<short>("Hits")
                         .HasColumnType("smallint");
 
-                    b.Property<double>("HltvRating1")
-                        .HasColumnType("double");
+                    b.Property<float>("HltvRating1")
+                        .HasColumnType("float");
 
-                    b.Property<double>("HltvRating2")
-                        .HasColumnType("double");
+                    b.Property<float>("HltvRating2")
+                        .HasColumnType("float");
 
                     b.Property<short>("Hs")
                         .HasColumnType("smallint");
@@ -1325,29 +1319,32 @@ namespace Database.Migrations
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<bool>("IsCt")
+                        .HasColumnType("tinyint(1)");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerVeloX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerVeloY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerVeloX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerVeloZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerVeloY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerVeloZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
+
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<int>("Tick")
                         .HasColumnType("int");
@@ -1375,8 +1372,8 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<short>("ArmorType")
-                        .HasColumnType("smallint");
+                    b.Property<byte>("ArmorType")
+                        .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("GiftedValue")
                         .HasColumnType("int");
@@ -1397,9 +1394,6 @@ namespace Database.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("MoneySpent")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PathId")
                         .HasColumnType("int");
 
                     b.Property<int>("PlayedEquipmentValue")
@@ -1437,28 +1431,6 @@ namespace Database.Migrations
                     b.HasIndex("MatchId", "Round");
 
                     b.ToTable("PlayerRoundStats");
-                });
-
-            modelBuilder.Entity("MatchEntities.Refrag", b =>
-                {
-                    b.Property<long>("MatchId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("KillId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("RefraggedKillId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("MatchId", "KillId");
-
-                    b.HasIndex("MatchId");
-
-                    b.HasIndex("MatchId", "KillId");
-
-                    b.HasIndex("MatchId", "RefraggedKillId");
-
-                    b.ToTable("Refrag");
                 });
 
             modelBuilder.Entity("MatchEntities.RoundItem", b =>
@@ -1550,7 +1522,7 @@ namespace Database.Migrations
                     b.Property<int>("TerrorStrategyId")
                         .HasColumnType("int");
 
-                    b.Property<byte?>("WinType")
+                    b.Property<byte>("WinType")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<byte>("WinnerTeam")
@@ -1571,38 +1543,41 @@ namespace Database.Migrations
                     b.Property<long>("GrenadeId")
                         .HasColumnType("bigint");
 
-                    b.Property<int>("Category")
+                    b.Property<float>("DetonationPosX")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosY")
+                        .HasColumnType("float");
+
+                    b.Property<float>("DetonationPosZ")
+                        .HasColumnType("float");
+
+                    b.Property<int>("DetonationZoneByTeam")
                         .HasColumnType("int");
-
-                    b.Property<double>("GrenadePosX")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosY")
-                        .HasColumnType("double");
-
-                    b.Property<double>("GrenadePosZ")
-                        .HasColumnType("double");
 
                     b.Property<bool>("IsCt")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("LineUp")
+                        .HasColumnType("int");
+
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<byte>("Result")
                         .HasColumnType("tinyint unsigned");
@@ -1644,44 +1619,44 @@ namespace Database.Migrations
                     b.Property<long>("WeaponFiredId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("InAccuracyFromFiring")
-                        .HasColumnType("double");
+                    b.Property<float>("InAccuracyFromFiring")
+                        .HasColumnType("float");
 
-                    b.Property<double>("InAccuracyFromMoving")
-                        .HasColumnType("double");
+                    b.Property<float>("InAccuracyFromMoving")
+                        .HasColumnType("float");
 
                     b.Property<bool>("IsCt")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsDucking")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<short>("PlayerState")
-                        .HasColumnType("smallint");
+                    b.Property<float>("PlayerVeloX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerVeloX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerVeloY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerVeloY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerVeloZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerVeloZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
-
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<short>("Round")
                         .HasColumnType("smallint");
@@ -1726,20 +1701,20 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
-                    b.Property<double>("PlayerPosX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosY")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerPosZ")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerPosZ")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewX")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewX")
+                        .HasColumnType("float");
 
-                    b.Property<double>("PlayerViewY")
-                        .HasColumnType("double");
+                    b.Property<float>("PlayerViewY")
+                        .HasColumnType("float");
 
                     b.Property<short>("ReserveAmmo")
                         .HasColumnType("smallint");
@@ -2030,10 +2005,6 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.Kill", "AssistedKill")
-                        .WithOne("AssistingFlash")
-                        .HasForeignKey("MatchEntities.Flashed", "MatchId", "AssistedKillId");
-
                     b.HasOne("MatchEntities.Flash", "Flash")
                         .WithMany("Flashed")
                         .HasForeignKey("MatchId", "GrenadeId")
@@ -2297,6 +2268,28 @@ namespace Database.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MatchEntities.MatchStats", b =>
+                {
+                    b.OwnsOne("MatchEntities.AnalyzerConfig", "Config", b1 =>
+                        {
+                            b1.Property<long>("MatchStatsMatchId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<double>("FramesPerSecond")
+                                .HasColumnType("double");
+
+                            b1.Property<byte>("Quality")
+                                .HasColumnType("tinyint unsigned");
+
+                            b1.HasKey("MatchStatsMatchId");
+
+                            b1.ToTable("MatchStats");
+
+                            b1.WithOwner()
+                                .HasForeignKey("MatchStatsMatchId");
+                        });
+                });
+
             modelBuilder.Entity("MatchEntities.OverTimeStats", b =>
                 {
                     b.HasOne("MatchEntities.MatchStats", "MatchStats")
@@ -2359,27 +2352,6 @@ namespace Database.Migrations
                     b.HasOne("MatchEntities.RoundStats", "RoundStats")
                         .WithMany("PlayerRoundStats")
                         .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("MatchEntities.Refrag", b =>
-                {
-                    b.HasOne("MatchEntities.MatchStats", "MatchStats")
-                        .WithMany("Refrag")
-                        .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MatchEntities.Kill", "Kill")
-                        .WithOne("Refrag")
-                        .HasForeignKey("MatchEntities.Refrag", "MatchId", "KillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MatchEntities.Kill", "RefraggedKill")
-                        .WithMany("RefraggedBy")
-                        .HasForeignKey("MatchId", "RefraggedKillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
