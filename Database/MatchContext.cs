@@ -69,17 +69,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                // One to zero/one relation
-                // Every BombDefused has a RoundStats, but not every RoundStats has a BombDefused
-                entity.HasOne(d => d.RoundStats)
-                    .WithOne(p => p.BombDefused)
-                    .HasForeignKey<BombDefused>(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.BombDefused)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<BombExplosion>(entity =>
@@ -95,10 +86,7 @@ namespace Database
                     .HasForeignKey(d => d.MatchId)
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithOne(p => p.BombExplosion)
-                    .HasForeignKey<BombExplosion>(d => new { d.MatchId, d.Round })
-                    .IsRequired();
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<BombPlant>(entity =>
@@ -123,15 +111,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithOne(p => p.BombPlant)
-                    .HasForeignKey<BombPlant>(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.BombPlant)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.Pos);
                 entity.Property("PosX");
@@ -162,15 +143,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.BotTakeOver)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.BotTakeOver)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<ConnectDisconnect>(entity =>
@@ -193,10 +167,7 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.ConnectDisconnect)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<Damage>(entity =>
@@ -243,12 +214,7 @@ namespace Database
                 entity.HasOne(d => d.PlayerMatchStats)
                     .WithMany(p => p.Damages)
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
-                    .IsRequired();                
-
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.Damage)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
+                    .IsRequired();               
 
                 entity.HasOne(d => d.VictimMatchStats)
                     .WithMany(p => p.DamagesReceived)
@@ -259,15 +225,9 @@ namespace Database
                     .WithMany(p => p.Damage)
                     .HasForeignKey(d => new { d.MatchId, d.WeaponFiredId });
 
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.Damages)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
-
-                entity.HasOne(d => d.VictimRoundStats)
-                    .WithMany(p => p.DamagesReceived)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.VictimId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.VictimRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -303,15 +263,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.Decoy)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.Decoy)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -350,15 +303,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.FireNade)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.FireNade)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -397,15 +343,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.Flash)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.Flash)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -454,20 +393,13 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.GrenadeId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.Flashed)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
                 entity.HasOne(d => d.PlayerMatchStats)
                     .WithMany(p => p.Flashed)
                     .HasForeignKey(d => new { d.MatchId, d.VictimId })
                     .IsRequired();
 
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.Flashed)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.VictimId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.VictimPos);
                 entity.Property("VictimPosX");
@@ -497,15 +429,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.He)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.He)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -542,15 +467,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.HostageDrop)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.HostageDrop)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.Pos);
                 entity.Property("PosX");
@@ -580,16 +498,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.HostagePickUp)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_HostagePickUp_RoundStats");
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.HostagePickUp)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.Pos);
                 entity.Property("PosX");
@@ -619,15 +529,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.HostageRescue)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.HostageRescue)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.Pos);
                 entity.Property("PosX");
@@ -657,15 +560,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.ItemDropped)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.ItemDropped)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<ItemPickedUp>(entity =>
@@ -696,15 +592,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.ItemPickedUp)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.ItemPickedUp)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<ItemSaved>(entity =>
@@ -729,15 +618,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.ItemSaved)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.ItemSaved)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<Kill>(entity =>
@@ -769,25 +651,14 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.Kills)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
                 entity.HasOne(d => d.VictimMatchStats)
                     .WithMany(p => p.Deaths)
                     .HasForeignKey(d => new { d.MatchId, d.VictimId })
                     .IsRequired();
 
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.Kills)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
-
-                entity.HasOne(d => d.VictimRoundStats)
-                    .WithMany(p => p.Deaths)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.VictimId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.VictimRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -894,15 +765,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.PlayerPosition)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.PlayerPosition)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -939,10 +803,7 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.PlayerRoundStats)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<RoundItem>(entity =>
@@ -966,15 +827,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.RoundItem)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.RoundItem)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
             });
 
             modelBuilder.Entity<RoundStats>(entity =>
@@ -1013,15 +867,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.Smoke)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.Smoke)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -1061,15 +908,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.WeaponFired)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.WeaponFired)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
@@ -1106,15 +946,8 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                entity.HasOne(d => d.RoundStats)
-                    .WithMany(p => p.WeaponReload)
-                    .HasForeignKey(d => new { d.MatchId, d.Round })
-                    .IsRequired();
-
-                entity.HasOne(d => d.PlayerRoundStats)
-                    .WithMany(p => p.WeaponReload)
-                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
-                    .IsRequired();
+                entity.Ignore(x => x.PlayerRoundStats);
+                entity.Ignore(x => x.RoundStats);
 
                 entity.Ignore(x => x.PlayerPos);
                 entity.Property("PlayerPosX");
