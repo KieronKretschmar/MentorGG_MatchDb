@@ -3,14 +3,16 @@ using System;
 using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Database.Migrations
 {
     [DbContext(typeof(MatchContext))]
-    partial class MatchContextModelSnapshot : ModelSnapshot
+    [Migration("20200626082945_save-resources")]
+    partial class saveresources
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,6 +33,15 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
@@ -40,10 +51,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "PlayerId");
 
-                    b.HasIndex("MatchId", "Round")
-                        .IsUnique();
+                    b.HasIndex("MatchId", "Round");
 
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("BombDefused");
                 });
@@ -63,8 +75,7 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId");
 
-                    b.HasIndex("MatchId", "Round")
-                        .IsUnique();
+                    b.HasIndex("MatchId", "Round");
 
                     b.ToTable("BombExplosion");
                 });
@@ -82,6 +93,15 @@ namespace Database.Migrations
 
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
 
                     b.Property<float>("PosX")
                         .HasColumnType("float");
@@ -104,10 +124,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "PlayerId");
 
-                    b.HasIndex("MatchId", "Round")
-                        .IsUnique();
+                    b.HasIndex("MatchId", "Round");
 
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("BombPlant");
                 });
@@ -126,7 +147,22 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -140,7 +176,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("BotTakeOver");
                 });
@@ -162,6 +202,12 @@ namespace Database.Migrations
                     b.Property<byte>("Round")
                         .HasColumnType("tinyint unsigned");
 
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
@@ -172,6 +218,8 @@ namespace Database.Migrations
                     b.HasIndex("MatchId", "PlayerId");
 
                     b.HasIndex("MatchId", "Round");
+
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
 
                     b.ToTable("ConnectDisconnect");
                 });
@@ -223,10 +271,34 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsMatchId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<byte?>("PlayerRoundStatsRound1")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<int?>("PlayerZoneByTeam")
                         .HasColumnType("int");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<bool>("TeamAttack")
@@ -274,9 +346,15 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "WeaponFiredId");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
 
                     b.HasIndex("MatchId", "Round", "VictimId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId1", "PlayerRoundStatsRound1", "PlayerRoundStatsPlayerId1");
 
                     b.ToTable("Damage");
                 });
@@ -316,6 +394,15 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<float>("PlayerViewX")
                         .HasColumnType("float");
 
@@ -323,6 +410,12 @@ namespace Database.Migrations
                         .HasColumnType("float");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -340,7 +433,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("Decoy");
                 });
@@ -383,6 +480,15 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<float>("PlayerViewX")
                         .HasColumnType("float");
 
@@ -390,6 +496,12 @@ namespace Database.Migrations
                         .HasColumnType("float");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -407,7 +519,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("FireNade");
                 });
@@ -447,6 +563,15 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<float>("PlayerViewX")
                         .HasColumnType("float");
 
@@ -454,6 +579,12 @@ namespace Database.Migrations
                         .HasColumnType("float");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -471,7 +602,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("Flash");
                 });
@@ -496,7 +631,22 @@ namespace Database.Migrations
                     b.Property<bool>("IsCt")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<bool>("TeamAttack")
@@ -533,7 +683,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "VictimId");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "VictimId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("Flashed");
                 });
@@ -573,6 +727,15 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<float>("PlayerViewX")
                         .HasColumnType("float");
 
@@ -580,6 +743,12 @@ namespace Database.Migrations
                         .HasColumnType("float");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -596,7 +765,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("He");
                 });
@@ -735,7 +908,22 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -749,7 +937,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("ItemDropped");
                 });
@@ -783,7 +975,22 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -799,7 +1006,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("ItemPickedUp");
                 });
@@ -824,7 +1035,22 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.HasKey("MatchId", "ItemSavedId");
@@ -835,7 +1061,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("ItemSaved");
                 });
@@ -888,6 +1118,24 @@ namespace Database.Migrations
                     b.Property<short>("PlayerPrimary")
                         .HasColumnType("smallint");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsMatchId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId1")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<byte?>("PlayerRoundStatsRound1")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<short>("PlayerSecondary")
                         .HasColumnType("smallint");
 
@@ -895,6 +1143,12 @@ namespace Database.Migrations
                         .HasColumnType("int");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<bool>("TeamKill")
@@ -939,9 +1193,13 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "VictimId");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
 
-                    b.HasIndex("MatchId", "Round", "VictimId");
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId1", "PlayerRoundStatsRound1", "PlayerRoundStatsPlayerId1");
 
                     b.ToTable("Kill");
                 });
@@ -1397,7 +1655,22 @@ namespace Database.Migrations
                     b.Property<long>("PlayerId")
                         .HasColumnType("bigint");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.HasKey("MatchId", "RoundItemId");
@@ -1408,7 +1681,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("RoundItem");
                 });
@@ -1419,6 +1696,24 @@ namespace Database.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("BombDefusedMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("BombDefusedRound")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("BombExplosionMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("BombExplosionRound")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("BombPlantMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("BombPlantRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<bool>("BombPlanted")
@@ -1476,6 +1771,12 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId");
 
+                    b.HasIndex("BombDefusedMatchId", "BombDefusedRound");
+
+                    b.HasIndex("BombExplosionMatchId", "BombExplosionRound");
+
+                    b.HasIndex("BombPlantMatchId", "BombPlantRound");
+
                     b.ToTable("RoundStats");
                 });
 
@@ -1517,6 +1818,15 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<float>("PlayerViewX")
                         .HasColumnType("float");
 
@@ -1527,6 +1837,12 @@ namespace Database.Migrations
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Target")
@@ -1547,7 +1863,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("Smoke");
                 });
@@ -1584,6 +1904,15 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<float>("PlayerVeloX")
                         .HasColumnType("float");
 
@@ -1602,6 +1931,12 @@ namespace Database.Migrations
                     b.Property<byte>("Round")
                         .HasColumnType("tinyint unsigned");
 
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<int>("Time")
                         .HasColumnType("int");
 
@@ -1614,7 +1949,9 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "PlayerId");
 
-                    b.HasIndex("MatchId", "Round", "PlayerId");
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("WeaponFired");
                 });
@@ -1648,6 +1985,15 @@ namespace Database.Migrations
                     b.Property<float>("PlayerPosZ")
                         .HasColumnType("float");
 
+                    b.Property<long?>("PlayerRoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("PlayerRoundStatsPlayerId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("PlayerRoundStatsRound")
+                        .HasColumnType("tinyint unsigned");
+
                     b.Property<float>("PlayerViewX")
                         .HasColumnType("float");
 
@@ -1658,6 +2004,12 @@ namespace Database.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<byte>("Round")
+                        .HasColumnType("tinyint unsigned");
+
+                    b.Property<long?>("RoundStatsMatchId")
+                        .HasColumnType("bigint");
+
+                    b.Property<byte?>("RoundStatsRound")
                         .HasColumnType("tinyint unsigned");
 
                     b.Property<int>("Time")
@@ -1674,7 +2026,11 @@ namespace Database.Migrations
 
                     b.HasIndex("MatchId", "Round");
 
+                    b.HasIndex("RoundStatsMatchId", "RoundStatsRound");
+
                     b.HasIndex("MatchId", "Round", "PlayerId");
+
+                    b.HasIndex("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
 
                     b.ToTable("WeaponReload");
                 });
@@ -1693,17 +2049,9 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
-                        .WithOne("BombDefused")
-                        .HasForeignKey("MatchEntities.BombDefused", "MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("BombDefused")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.BombExplosion", b =>
@@ -1711,12 +2059,6 @@ namespace Database.Migrations
                     b.HasOne("MatchEntities.MatchStats", "MatchStats")
                         .WithMany("BombExplosion")
                         .HasForeignKey("MatchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
-                        .WithOne("BombExplosion")
-                        .HasForeignKey("MatchEntities.BombExplosion", "MatchId", "Round")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -1735,17 +2077,9 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
-                        .WithOne("BombPlant")
-                        .HasForeignKey("MatchEntities.BombPlant", "MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("BombPlant")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.BotTakeOver", b =>
@@ -1762,17 +2096,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("BotTakeOver")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("BotTakeOver")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.ConnectDisconnect", b =>
@@ -1789,11 +2119,9 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("ConnectDisconnect")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
                 });
 
             modelBuilder.Entity("MatchEntities.Damage", b =>
@@ -1822,12 +2150,6 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
-                        .WithMany("Damage")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MatchEntities.PlayerMatchStats", "VictimMatchStats")
                         .WithMany("DamagesReceived")
                         .HasForeignKey("MatchId", "VictimId")
@@ -1838,17 +2160,17 @@ namespace Database.Migrations
                         .WithMany("Damage")
                         .HasForeignKey("MatchId", "WeaponFiredId");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
-                        .WithMany("Damages")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("MatchEntities.RoundStats", null)
+                        .WithMany("Damage")
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "VictimRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("DamagesReceived")
-                        .HasForeignKey("MatchId", "Round", "VictimId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
+
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
+                        .WithMany("Damages")
+                        .HasForeignKey("PlayerRoundStatsMatchId1", "PlayerRoundStatsRound1", "PlayerRoundStatsPlayerId1");
                 });
 
             modelBuilder.Entity("MatchEntities.Decoy", b =>
@@ -1865,17 +2187,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("Decoy")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("Decoy")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.FireNade", b =>
@@ -1892,17 +2210,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("FireNade")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("FireNade")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.Flash", b =>
@@ -1919,17 +2233,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("Flash")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("Flash")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.Flashed", b =>
@@ -1946,23 +2256,19 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
-                        .WithMany("Flashed")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MatchEntities.PlayerMatchStats", "PlayerMatchStats")
                         .WithMany("Flashed")
                         .HasForeignKey("MatchId", "VictimId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("Flashed")
-                        .HasForeignKey("MatchId", "Round", "VictimId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
+
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
+                        .WithMany("Flashed")
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.He", b =>
@@ -1979,17 +2285,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("He")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("He")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.HostageDrop", b =>
@@ -2006,13 +2308,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("HostageDrop")
                         .HasForeignKey("MatchId", "Round")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("HostageDrop")
                         .HasForeignKey("MatchId", "Round", "PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2033,13 +2335,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("HostagePickUp")
                         .HasForeignKey("MatchId", "Round")
-                        .HasConstraintName("FK_HostagePickUp_RoundStats")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("HostagePickUp")
                         .HasForeignKey("MatchId", "Round", "PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2060,13 +2362,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("HostageRescue")
                         .HasForeignKey("MatchId", "Round")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("HostageRescue")
                         .HasForeignKey("MatchId", "Round", "PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2087,17 +2389,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("ItemDropped")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("ItemDropped")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.ItemPickedUp", b =>
@@ -2118,17 +2416,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("ItemPickedUp")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("ItemPickedUp")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.ItemSaved", b =>
@@ -2145,17 +2439,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("ItemSaved")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("ItemSaved")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.Kill", b =>
@@ -2178,29 +2468,23 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
-                        .WithMany("Kills")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MatchEntities.PlayerMatchStats", "VictimMatchStats")
                         .WithMany("Deaths")
                         .HasForeignKey("MatchId", "VictimId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("Kills")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "VictimRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("Deaths")
-                        .HasForeignKey("MatchId", "Round", "VictimId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
+
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
+                        .WithMany("Kills")
+                        .HasForeignKey("PlayerRoundStatsMatchId1", "PlayerRoundStatsRound1", "PlayerRoundStatsPlayerId1");
                 });
 
             modelBuilder.Entity("MatchEntities.MatchStats", b =>
@@ -2257,13 +2541,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("PlayerPosition")
                         .HasForeignKey("MatchId", "Round")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("PlayerPosition")
                         .HasForeignKey("MatchId", "Round", "PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2284,7 +2568,7 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("PlayerRoundStats")
                         .HasForeignKey("MatchId", "Round")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -2305,17 +2589,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("RoundItem")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("RoundItem")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.RoundStats", b =>
@@ -2325,6 +2605,18 @@ namespace Database.Migrations
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("MatchEntities.BombDefused", "BombDefused")
+                        .WithMany()
+                        .HasForeignKey("BombDefusedMatchId", "BombDefusedRound");
+
+                    b.HasOne("MatchEntities.BombExplosion", "BombExplosion")
+                        .WithMany()
+                        .HasForeignKey("BombExplosionMatchId", "BombExplosionRound");
+
+                    b.HasOne("MatchEntities.BombPlant", "BombPlant")
+                        .WithMany()
+                        .HasForeignKey("BombPlantMatchId", "BombPlantRound");
                 });
 
             modelBuilder.Entity("MatchEntities.Smoke", b =>
@@ -2341,17 +2633,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("Smoke")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("Smoke")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.WeaponFired", b =>
@@ -2368,17 +2656,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("WeaponFired")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("WeaponFired")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 
             modelBuilder.Entity("MatchEntities.WeaponReload", b =>
@@ -2395,17 +2679,13 @@ namespace Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MatchEntities.RoundStats", "RoundStats")
+                    b.HasOne("MatchEntities.RoundStats", null)
                         .WithMany("WeaponReload")
-                        .HasForeignKey("MatchId", "Round")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RoundStatsMatchId", "RoundStatsRound");
 
-                    b.HasOne("MatchEntities.PlayerRoundStats", "PlayerRoundStats")
+                    b.HasOne("MatchEntities.PlayerRoundStats", null)
                         .WithMany("WeaponReload")
-                        .HasForeignKey("MatchId", "Round", "PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerRoundStatsMatchId", "PlayerRoundStatsRound", "PlayerRoundStatsPlayerId");
                 });
 #pragma warning restore 612, 618
         }
