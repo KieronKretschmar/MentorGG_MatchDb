@@ -772,10 +772,6 @@ namespace Database
                 entity.Property("PlayerPosX");
                 entity.Property("PlayerPosY");
                 entity.Property("PlayerPosZ");
-                entity.Ignore(x => x.PlayerVelo);
-                entity.Property("PlayerVeloX");
-                entity.Property("PlayerVeloY");
-                entity.Property("PlayerVeloZ");
                 entity.Ignore(x => x.PlayerView);
                 entity.Property("PlayerViewX");
                 entity.Property("PlayerViewY");
