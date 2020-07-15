@@ -82,6 +82,11 @@ namespace Database
                     .WithMany(p => p.BombDefused)
                     .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
                     .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
             });
 
             modelBuilder.Entity<BombExplosion>(entity =>
@@ -139,6 +144,11 @@ namespace Database
                 entity.Property("PosX");
                 entity.Property("PosY");
                 entity.Property("PosZ");
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
             });
 
 
