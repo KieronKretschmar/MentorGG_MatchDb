@@ -23,6 +23,7 @@ namespace Database
         public virtual DbSet<ConnectDisconnect> ConnectDisconnect { get; set; }
         public virtual DbSet<Damage> Damage { get; set; }
         public virtual DbSet<Decoy> Decoy { get; set; }
+        public virtual DbSet<DroppedBombPosition> DroppedBombPosition { get; set; }
         public virtual DbSet<FireNade> FireNade { get; set; }
         public virtual DbSet<Flash> Flash { get; set; }
         public virtual DbSet<Flashed> Flashed { get; set; }
@@ -36,6 +37,7 @@ namespace Database
         public virtual DbSet<Kill> Kill { get; set; }
         public virtual DbSet<MatchStats> MatchStats { get; set; }
         public virtual DbSet<OverTimeStats> OverTimeStats { get; set; }
+        public virtual DbSet<PlayerJump> PlayerJump { get; set; }
         public virtual DbSet<PlayerMatchStats> PlayerMatchStats { get; set; }
         public virtual DbSet<PlayerPosition> PlayerPosition { get; set; }
         public virtual DbSet<PlayerRoundStats> PlayerRoundStats { get; set; }
@@ -324,6 +326,27 @@ namespace Database
                 entity.Ignore(x => x.PlayerView);
                 entity.Property("PlayerViewX");
                 entity.Property("PlayerViewY");
+            });
+
+            modelBuilder.Entity<DroppedBombPosition>(entity =>
+            {
+                entity.HasKey(e => new { e.MatchId, e.Time });
+
+                entity.HasIndex(e => e.MatchId);
+
+                entity.HasOne(d => d.MatchStats)
+                    .WithMany(p => p.DroppedBombPosition)
+                    .HasForeignKey(d => d.MatchId);
+
+                entity.HasOne(d => d.RoundStats)
+                    .WithMany(p => p.DroppedBombPosition)
+                    .HasForeignKey(d => new { d.MatchId, d.Round })
+                    .IsRequired();
+
+                entity.Ignore(x => x.Pos);
+                entity.Property("PosX");
+                entity.Property("PosY");
+                entity.Property("PosZ");
             });
 
             modelBuilder.Entity<FireNade>(entity =>
@@ -854,6 +877,45 @@ namespace Database
                     .WithOne(p => p.OverTimeStats)
                     .HasForeignKey<OverTimeStats>(d => d.MatchId)
                     .IsRequired();
+            });
+
+            modelBuilder.Entity<PlayerJump>(entity =>
+            {
+                entity.HasKey(e => new { e.MatchId, e.PlayerId, e.Time });
+
+                entity.HasIndex(e => e.MatchId);
+                entity.HasIndex(e => e.PlayerId);
+
+                entity.HasOne(d => d.MatchStats)
+                    .WithMany(p => p.PlayerJump)
+                    .HasForeignKey(d => d.MatchId);
+
+                entity.HasOne(d => d.PlayerMatchStats)
+                    .WithMany(p => p.PlayerJump)
+                    .HasForeignKey(d => new { d.MatchId, d.PlayerId })
+                    .IsRequired();
+
+                entity.HasOne(d => d.RoundStats)
+                    .WithMany(p => p.PlayerJump)
+                    .HasForeignKey(d => new { d.MatchId, d.Round })
+                    .IsRequired();
+
+                entity.HasOne(d => d.PlayerRoundStats)
+                    .WithMany(p => p.PlayerJump)
+                    .HasForeignKey(d => new { d.MatchId, d.Round, d.PlayerId })
+                    .IsRequired();
+
+                entity.Ignore(x => x.PlayerPos);
+                entity.Property("PlayerPosX");
+                entity.Property("PlayerPosY");
+                entity.Property("PlayerPosZ");
+                entity.Ignore(x => x.PlayerVelo);
+                entity.Property("PlayerVeloX");
+                entity.Property("PlayerVeloY");
+                entity.Property("PlayerVeloZ");
+                entity.Ignore(x => x.PlayerView);
+                entity.Property("PlayerViewX");
+                entity.Property("PlayerViewY");
             });
 
             modelBuilder.Entity<PlayerMatchStats>(entity =>
