@@ -51,7 +51,7 @@ namespace Database
         {
             modelBuilder.Entity<BombDefused>(entity =>
             {
-                entity.HasKey(e => new { e.MatchId, e.Round });
+                entity.HasKey(e => new { e.MatchId, e.Round, e.Time });
 
                 entity.HasIndex(e => e.MatchId);
 
@@ -71,11 +71,9 @@ namespace Database
                     .HasForeignKey(d => new { d.MatchId, d.PlayerId })
                     .IsRequired();
 
-                // One to zero/one relation
-                // Every BombDefused has a RoundStats, but not every RoundStats has a BombDefused
                 entity.HasOne(d => d.RoundStats)
-                    .WithOne(p => p.BombDefused)
-                    .HasForeignKey<BombDefused>(d => new { d.MatchId, d.Round })
+                    .WithMany(p => p.BombDefused)
+                    .HasForeignKey(d => new { d.MatchId, d.Round })
                     .IsRequired();
 
                 entity.HasOne(d => d.PlayerRoundStats)
@@ -110,7 +108,7 @@ namespace Database
 
             modelBuilder.Entity<BombPlant>(entity =>
             {
-                entity.HasKey(e => new { e.MatchId, e.Round });
+                entity.HasKey(e => new { e.MatchId, e.Round, e.Time });
 
                 entity.HasIndex(e => e.MatchId);
 
@@ -131,8 +129,8 @@ namespace Database
                     .IsRequired();
 
                 entity.HasOne(d => d.RoundStats)
-                    .WithOne(p => p.BombPlant)
-                    .HasForeignKey<BombPlant>(d => new { d.MatchId, d.Round })
+                    .WithMany(p => p.BombPlant)
+                    .HasForeignKey(d => new { d.MatchId, d.Round })
                     .IsRequired();
 
                 entity.HasOne(d => d.PlayerRoundStats)
